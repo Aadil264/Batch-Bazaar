@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Confirm Your Purchase - Batch Bazaar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f9f9f9;
+      max-width: 500px;
+      margin: auto;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 25px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    p.info {
+      font-size: 14px;
+      color: #555;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Confirm Your Purchase</h1>
+
+  <form id="confirmForm">
+    <input type="email" id="email" placeholder="Your Email" required />
+    <input type="text" id="txnId" placeholder="Transaction ID or UPI Reference Number" required />
+    <textarea id="message" placeholder="Upload Screenshot URL or Write any message (optional)" rows="4"></textarea>
+    <button type="submit">Submit Confirmation</button>
+  </form>
+
+  <p class="info">After submission, we will verify your payment and send the batch link on your email.</p>
+
+  <script>
+    document.getElementById('confirmForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const txnId = document.getElementById('txnId').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!email || !txnId) {
+        alert('Please fill all required fields.');
+        return;
+      }
+
+      // For now, just show a thank you message. Later, you can integrate backend to store these.
+      alert('Thank you! We received your confirmation and will contact you soon.');
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
