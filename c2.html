@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Batch Bazaar - Checkout</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5fafd, #e0f0ff);
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      max-width: 480px;
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 30px 35px 40px 35px;
+      box-sizing: border-box;
+    }
+    h1 {
+      color: #ff4e50;
+      font-weight: 700;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    #selected-batch {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 22px;
+      border-radius: 12px;
+      border: 1.8px solid #ddd;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      border-color: #ff4e50;
+      outline: none;
+      box-shadow: 0 0 8px rgba(255,78,80,0.3);
+    }
+    .info-text {
+      background: #eaf7f7;
+      padding: 14px 20px;
+      margin-bottom: 30px;
+      border-left: 6px solid #00a9a5;
+      color: #00504f;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    button {
+      width: 100%;
+      background-color: #ff4e50;
+      color: white;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 15px 0;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255,78,80,0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      background-color: #e84243;
+      box-shadow: 0 8px 20px rgba(232,66,67,0.7);
+    }
+    @media (max-width: 520px) {
+      body {
+        padding: 30px 10px;
+      }
+      .container {
+        padding: 25px 20px 35px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Checkout</h1>
+    <div id="selected-batch">Loading batch...</div>
+
+    <form id="checkout-form" autocomplete="off">
+      <label for="name">Full Name</label>
+      <input id="name" name="name" type="text" placeholder="Your full name" required />
+
+      <label for="email">Email Address</label>
+      <input id="email" name="email" type="email" placeholder="Your email address" required />
+
+      <label for="address">Shipping Address</label>
+      <textarea id="address" name="address" rows="4" placeholder="Enter your shipping address" required></textarea>
+
+      <div class="info-text">
+        Batch Link will be shared with you on the given email.
+      </div>
+
+      <button type="submit">Buy Now</button>
+    </form>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const batch = params.get('batch') || 'Selected Batch';
+    document.getElementById('selected-batch').textContent = `You are buying: ${batch}`;
+
+    document.getElementById('checkout-form').addEventListener('submit', e => {
+      e.preventDefault();
+      alert(`Thank you for purchasing "${batch}"!\nPlease check your email for the batch link.`);
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
