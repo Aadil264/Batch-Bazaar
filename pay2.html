@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payment - Batch Bazaar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    input[type="email"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    .pay-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .pay-button:hover {
+      background-color: #45a049;
+    }
+    .info {
+      margin-top: 30px;
+      color: #555;
+      font-size: 14px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #qr-code {
+      margin: 20px auto;
+      width: 180px;
+      height: 180px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Buy Your Batch - ₹499</h1>
+  <p>Enter your email to receive the batch link after payment</p>
+
+  <input type="email" id="email" placeholder="Your Email" required />
+
+  <div id="qr-code"></div>
+
+  <a href="#" id="pay-link" class="pay-button" onclick="return openUpiPayment();">
+    Pay ₹499 via UPI
+  </a>
+
+  <div class="info">
+    <p>Batch link will be shared with you on your email after payment.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    const upiId = "aadilbinmajeed264-6@okicici";
+    const payeeName = "BatchBazaar";
+    const amount = "499";
+    const txnNote = "Batch Purchase";
+
+    // Generate QR code for UPI payment
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&tn=${encodeURIComponent(txnNote)}`;
+
+    QRCode.toCanvas(document.getElementById('qr-code'), upiUrl, { width: 180 }, function (error) {
+      if (error) console.error(error);
+    });
+
+    // Function to open UPI app with payment details
+    function openUpiPayment() {
+      const email = document.getElementById("email").value.trim();
+      if (!email) {
+        alert("Please enter your email first.");
+        return false; // Prevent link default
+      }
+
+      const url = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&tn=${encodeURIComponent(txnNote)}`;
+      window.location.href = url;
+      return false; // Prevent default anchor behavior
+    }
+  </script>
+
+</body>
+</html>
